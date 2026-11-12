@@ -71,7 +71,7 @@ The page loads its files from `/static/...`, so open the folder that contains `l
 
 | Project | Description | Code |
 |---|---|---|
-| Novact Claims portal (EBIL Claims) | Claims management system built with Django, covering Motor, Non-Motor and Credit Life claims. A Go rewrite is planned. | [GitHub](https://github.com/Shamu620/Claims_portal) |
+| Novact Claims portal | Claims management system built with Django, covering Motor, Non-Motor and Credit Life claims. A Go rewrite is planned. | [GitHub](https://github.com/Shamu620/Claims_portal) |
 | Savannah Spoon Inn | Responsive hotel website with menu and contact sections, built with HTML and CSS. | [GitHub](https://github.com/Shamu620/Savannah_spoon_inn) |
 
 ## Browser support
