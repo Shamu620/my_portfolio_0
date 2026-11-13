@@ -4,8 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Shalom Mumo, full-stack developer and first-year Computer Science student at the University of Nairobi. Python, JavaScript, C and Go.">
+  <meta name="author" content="Shalom Mumo">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shalom Mumo | Full-Stack Developer">
+  <meta property="og:description" content="Computer Science student building reliable web and backend software with Python, JavaScript, C and Go.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%231d4e89'/%3E%3Ctext%20x='32'%20y='43'%20text-anchor='middle'%20font-family='IBM%20Plex%20Serif,Georgia,Times%20New%20Roman,serif'%20font-size='30'%20font-weight='700'%20letter-spacing='-1'%20fill='white'%3ESM%3C/text%3E%3C/svg%3E">
   <title>Shalom Mumo | Full-Stack Developer</title>
+
+  <!-- Enables scroll animations and applies the saved theme before first paint (no flash) -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      try {
+        var t = localStorage.getItem("theme");
+        if (t) d.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,7 +86,7 @@
 
       <div class="hero-visual">
         <figure class="portrait">
-            <img src="/static/images/official_img.jpg" alt="Portrait of Shalom Mumo">
+            <img src="/static/images/official_img.jpg" alt="Portrait of Shalom Mumo" fetchpriority="high">
         </figure>
       </div>
     </section>
@@ -84,7 +100,7 @@
 
       <div class="about-grid">
         <figure class="about-image">
-          <img src="/static/images/shalom_at_canvathon.png" alt="Shalom Mumo at Canvathon">
+          <img src="/static/images/shalom_at_canvathon.png" alt="Shalom Mumo at Canvathon" loading="lazy" decoding="async">
         </figure>
 
         <div class="about-text">
@@ -106,7 +122,7 @@
             <div><dt>Location</dt><dd>Kenya</dd></div>
             <div><dt>Studying</dt><dd>Computer Science, Year 1</dd></div>
             <div><dt>Focus</dt><dd>Software Engineering</dd></div>
-            <div><dt>Email</dt><dd><a href="href=https://mail.google.com/mail/?view=cm&fs=1&to=shalommmumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">shalommumo620@students.uonbi.ac.ke</a></dd></div>
+            <div><dt>Email</dt><dd><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">shalommumo620@students.uonbi.ac.ke</a></dd></div>
           </dl>
 
         </div>
@@ -190,7 +206,7 @@
 
         <article class="project-card" data-category="backend">
           <div class="project-img">
-            <img src="/static/images/novact_claims_dashboard.png" alt="Novact Claims dashboard screenshot">
+            <img src="/static/images/novact_claims_dashboard.png" alt="Novact Claims dashboard screenshot" loading="lazy" decoding="async">
           </div>
           <div class="project-body">
             <h3>EBIL Claims</h3>
@@ -201,14 +217,14 @@
             <ul class="tags"><li>Python</li><li>Django</li><li>HTML</li><li>CSS</li></ul>
             <p class="planned">Planned: migration to Go for faster operations.</p>
             <div class="project-links">
-              <a href="https://github.com/Shamu620/Claims_portal" target="_blank" rel="noopener noreferer">View code</a>
+              <a href="https://github.com/Shamu620/Claims_portal" target="_blank" rel="noopener noreferrer">View code</a>
             </div>
           </div>
         </article>
 
         <article class="project-card" data-category="web">
           <div class="project-img">
-            <img src="/static/images/savannah_spoon_inn.png" alt="Savannah Spoon Inn homepage screenshot">
+            <img src="/static/images/savannah_spoon_inn.png" alt="Savannah Spoon Inn homepage screenshot" loading="lazy" decoding="async">
           </div>
           <div class="project-body">
             <h3>Savannah Spoon Inn</h3>
@@ -218,14 +234,15 @@
             </p>
             <ul class="tags"><li>HTML</li><li>CSS</li><li>Responsive</li></ul>
             <div class="project-links">
-              <a href="https://github.com/Shamu620/Savannah_spoon_inn" target="_blank" rel="noopener noreferer">View code</a>
+              <a href="https://github.com/Shamu620/Savannah_spoon_inn" target="_blank" rel="noopener noreferrer">View code</a>
             </div>
           </div>
         </article>
 
         <article class="project-card upcoming" data-category="backend">
           <div class="project-img">
-            <img src="/static/images/future_novact_claims_go.png" alt="Planned Go architecture diagram or mockup">
+            <img src="/static/images/future_novact_claims_go.png" alt="Concept preview of the planned Go version" loading="lazy" decoding="async">
+            <span class="img-badge">Concept preview</span>
           </div>
           <div class="project-body">
             <h3>EBIL Claims, Go edition <span class="status">In planning</span></h3>
@@ -291,14 +308,14 @@
           <p>I read every message and reply as soon as I can.</p>
 
           <ul>
-            <li><span>Email</span><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommmumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">shalommumo620@students.uonbi.ac.ke</a></li>
+            <li><span>Email</span><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">shalommumo620@students.uonbi.ac.ke</a></li>
             <li><span>Location</span>Kenya</li>
             <li><span>GitHub</span><a href="https://github.com/Shamu620/" target="_blank" rel="noopener">github.com/Shamu620</a></li>
             <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/shalom-mumo-5810943a2/" target="_blank" rel="noopener">linkedin.com/in/shalom-mumo</a></li>
           </ul>
         </div>
 
-        <!-- Opens the visitor's email app with the message filled in -->
+        <!-- Opens Gmail compose with the message filled in -->
         <form class="contact-form" id="contactForm">
           <div class="field">
             <label for="name">Name</label>
@@ -327,7 +344,7 @@
       <ul class="socials">
         <li><a href="https://github.com/Shamu620/" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://www.linkedin.com/in/shalom-mumo-5810943a2/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommmumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">Email</a></li>
+        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommumo620%40students.uonbi.ac.ke" target="_blank" rel="noopener noreferrer">Email</a></li>
       </ul>
     </div>
   </footer>

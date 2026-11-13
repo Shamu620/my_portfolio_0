@@ -10,6 +10,8 @@
     --accent-soft: #e6eef8;
     --on-accent: #ffffff;
     --shadow: 0 1px 2px rgba(15, 30, 51, 0.06);
+    --shadow-lift: 0 10px 24px rgba(15, 30, 51, 0.1);
+    --pulse: rgba(29, 78, 137, 0.35);
 
     --font-body:
         "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto,
@@ -19,6 +21,7 @@
     --radius: 6px;
     --header-h: 68px;
     --max: 1120px;
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 :root[data-theme="dark"] {
@@ -33,6 +36,8 @@
     --accent-soft: #1d2f47;
     --on-accent: #0f1722;
     --shadow: none;
+    --shadow-lift: 0 10px 24px rgba(0, 0, 0, 0.35);
+    --pulse: rgba(122, 167, 224, 0.4);
 }
 
 /* ---------- Base ---------- */
@@ -122,6 +127,75 @@ h3 {
     color: var(--on-accent);
 }
 
+/* ---------- Motion foundations ---------- */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
+@keyframes heroVisual {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+}
+@keyframes cardPop {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+    }
+}
+@keyframes dotPulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--pulse);
+    }
+    70%,
+    100% {
+        box-shadow: 0 0 0 9px transparent;
+    }
+}
+
+/* Scroll reveal. Only active when JS has added .js to <html>,
+   so content is never hidden if scripts fail to load. */
+.js .reveal {
+    opacity: 0;
+}
+.js .reveal.in-view {
+    opacity: 1;
+    animation: fadeUp 0.7s var(--ease) var(--d, 0s) backwards;
+}
+
+/* Smooth colour change when switching theme */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+    transition:
+        background-color 0.35s var(--ease),
+        color 0.35s var(--ease),
+        border-color 0.35s var(--ease) !important;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    z-index: 150;
+    pointer-events: none;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
     display: inline-flex;
@@ -135,10 +209,16 @@ h3 {
     transition:
         background-color 0.2s,
         color 0.2s,
-        border-color 0.2s;
+        border-color 0.2s,
+        transform 0.2s var(--ease),
+        box-shadow 0.2s var(--ease);
 }
 .btn:hover {
     text-decoration: none;
+    transform: translateY(-2px);
+}
+.btn:active {
+    transform: translateY(0);
 }
 .btn-primary {
     background: var(--accent);
@@ -147,6 +227,7 @@ h3 {
 .btn-primary:hover {
     background: var(--accent-hover);
     color: var(--on-accent);
+    box-shadow: var(--shadow-lift);
 }
 .btn-outline {
     background: transparent;
@@ -165,6 +246,13 @@ h3 {
     z-index: 100;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s var(--ease);
+}
+.site-header.scrolled {
+    box-shadow: 0 6px 18px rgba(15, 30, 51, 0.08);
+}
+:root[data-theme="dark"] .site-header.scrolled {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 .nav {
     height: var(--header-h);
@@ -233,6 +321,12 @@ h3 {
     color: var(--accent);
     border-color: var(--accent);
 }
+.theme-toggle svg {
+    transition: transform 0.4s var(--ease);
+}
+.theme-toggle:hover svg {
+    transform: rotate(20deg);
+}
 .icon-sun {
     display: none;
 }
@@ -261,6 +355,18 @@ h3 {
     height: 2px;
     background: var(--text);
     border-radius: 2px;
+    transition:
+        transform 0.3s var(--ease),
+        opacity 0.2s;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ---------- Hero ---------- */
@@ -271,6 +377,33 @@ h3 {
     gap: 4rem;
     padding-block: 5.5rem 6rem;
 }
+
+/* Staggered entrance on page load (CSS only) */
+.hero-text > * {
+    animation: fadeUp 0.8s var(--ease) backwards;
+}
+.hero-text > :nth-child(1) {
+    animation-delay: 0.05s;
+}
+.hero-text > :nth-child(2) {
+    animation-delay: 0.15s;
+}
+.hero-text > :nth-child(3) {
+    animation-delay: 0.25s;
+}
+.hero-text > :nth-child(4) {
+    animation-delay: 0.35s;
+}
+.hero-text > :nth-child(5) {
+    animation-delay: 0.45s;
+}
+.hero-text > :nth-child(6) {
+    animation-delay: 0.55s;
+}
+.hero-visual {
+    animation: heroVisual 0.9s var(--ease) 0.25s backwards;
+}
+
 .hero-kicker {
     font-size: 0.95rem;
     font-weight: 500;
@@ -324,12 +457,17 @@ h3 {
     background: var(--surface);
     padding: 10px;
     box-shadow: var(--shadow);
+    overflow: hidden;
 }
 .portrait img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 3px;
+    transition: transform 0.8s var(--ease);
+}
+.portrait:hover img {
+    transform: scale(1.03);
 }
 
 /* ---------- Sections ---------- */
@@ -364,12 +502,17 @@ h3 {
     background: var(--surface);
     padding: 10px;
     box-shadow: var(--shadow);
+    overflow: hidden;
 }
 .about-image img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 3px;
+    transition: transform 0.8s var(--ease);
+}
+.about-image:hover img {
+    transform: scale(1.03);
 }
 
 .about-text h3 {
@@ -427,6 +570,7 @@ h3 {
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 0.25rem;
+    font-variant-numeric: tabular-nums;
 }
 .stat span {
     font-size: 0.9rem;
@@ -463,6 +607,8 @@ h3 {
 }
 
 .project-img {
+    position: relative;
+    overflow: hidden;
     border-bottom: 1px solid var(--border);
     background: var(--surface-alt);
 }
@@ -473,6 +619,23 @@ h3 {
     object-fit: cover;
     border: 0;
     border-radius: var(--radius) var(--radius) 0 0;
+}
+.project-img img {
+    transition: transform 0.6s var(--ease);
+}
+.project-card:hover .project-img img {
+    transform: scale(1.04);
+}
+.img-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    font: 500 0.75rem/1.4 var(--font-body);
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
 }
 
 /* ---------- Skills ---------- */
@@ -487,6 +650,15 @@ h3 {
     border-radius: var(--radius);
     padding: 1.75rem;
     box-shadow: var(--shadow);
+    transition:
+        border-color 0.2s,
+        transform 0.25s var(--ease),
+        box-shadow 0.25s var(--ease);
+}
+.skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
 }
 .skill-card h3 {
     font-size: 1.1rem;
@@ -507,6 +679,15 @@ h3 {
     background: var(--surface-alt);
     border: 1px solid var(--border);
     border-radius: 999px;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+}
+.chips li:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 .chips li.chip-learning {
     background: var(--accent-soft);
@@ -557,13 +738,23 @@ h3 {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    transition: border-color 0.2s;
+    transition:
+        border-color 0.2s,
+        transform 0.25s var(--ease),
+        box-shadow 0.25s var(--ease);
 }
 .project-card:hover {
     border-color: var(--accent);
 }
+.project-card:not(.upcoming):hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+}
 .project-card.hidden {
     display: none;
+}
+.project-card.pop {
+    animation: cardPop 0.45s var(--ease) var(--d, 0s) backwards;
 }
 .project-body {
     display: flex;
@@ -594,6 +785,14 @@ h3 {
     padding-top: 1.25rem;
     font-weight: 500;
     font-size: 0.95rem;
+}
+.project-links a::after {
+    content: " \2192";
+    display: inline-block;
+    transition: transform 0.2s var(--ease);
+}
+.project-links a:hover::after {
+    transform: translateX(4px);
 }
 .project-card .planned + .project-links {
     padding-top: 1.25rem;
@@ -630,6 +829,15 @@ h3 {
     width: 1px;
     background: var(--border);
 }
+/* Line draws itself as the section scrolls into view */
+.js .timeline::before {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.3s var(--ease);
+}
+.js .timeline.in-view::before {
+    transform: scaleY(1);
+}
 .t-item {
     position: relative;
     display: grid;
@@ -650,6 +858,10 @@ h3 {
     border-radius: 50%;
     background: var(--bg);
     border: 2px solid var(--accent);
+}
+/* Gentle pulse marks the current stage */
+.t-item:first-child::before {
+    animation: dotPulse 2.4s ease-out infinite;
 }
 .t-date {
     font-size: 0.9rem;
@@ -723,7 +935,9 @@ h3 {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: border-color 0.2s;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
 .field textarea {
     resize: vertical;
@@ -740,6 +954,9 @@ h3 {
     font-size: 0.9rem;
     color: var(--accent);
     min-height: 1.4em;
+}
+.form-note:not(:empty) {
+    animation: fadeIn 0.4s var(--ease);
 }
 
 /* ---------- Footer ---------- */
@@ -777,14 +994,18 @@ h3 {
     box-shadow: var(--shadow);
     opacity: 0;
     visibility: hidden;
+    transform: translateY(8px);
     transition:
-        opacity 0.2s,
-        visibility 0.2s,
-        border-color 0.2s;
+        opacity 0.25s,
+        visibility 0.25s,
+        transform 0.25s var(--ease),
+        border-color 0.2s,
+        color 0.2s;
 }
 .to-top.show {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
 }
 .to-top:hover {
     border-color: var(--accent);
@@ -845,6 +1066,7 @@ h3 {
     }
     .nav-links.open {
         display: flex;
+        animation: fadeUp 0.25s var(--ease);
     }
     .nav-links a {
         padding: 0.75rem 0.5rem;
@@ -882,11 +1104,24 @@ h3 {
     }
 }
 
+/* ---------- Reduced motion: switch every animation off ---------- */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
     }
-    * {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
         transition: none !important;
+    }
+    .js .reveal {
+        opacity: 1;
+    }
+    .js .timeline::before {
+        transform: none;
+    }
+    .scroll-progress {
+        display: none;
     }
 }
